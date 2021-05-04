@@ -37,11 +37,11 @@ class Publisher(models.Model):
 class Book(models.Model):
     isbn = models.CharField(max_length=50)
     title = models.CharField(max_length=120)
-    author = models.ForeignKey(Author, blank=True, null=True, on_delete=models.CASCADE)
+    author = models.ManyToManyField(Author, blank=True, null=True)
     publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.isbn
+        return self.title
 
 
 class LendingInfo(models.Model):
@@ -49,8 +49,8 @@ class LendingInfo(models.Model):
     book = models.ForeignKey(Book, blank=False, null=False, on_delete=models.CASCADE)
     checkout = models.TimeField('checkout')
     con_before = models.TextField(blank=True)
-    checkin = models.TimeField('checkin')
-    con_after = models.TextField(blank=True)
+    checkin = models.TimeField('checkin', blank=True, null=True)
+    con_after = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)

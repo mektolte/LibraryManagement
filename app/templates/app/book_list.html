@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h1>Books</h1>
+    <br>
+    <h6>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">ISBN</th>
+              <th scope="col">Title</th>
+              <th scope="col">Publisher</th>
+              <th scope="col">Author</th>
+            </tr>
+          </thead>
+            <tbody>
+
+            {% for book in book_list %}
+
+                <tr>
+                  <td>{{ book.isbn }}</td>
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.publisher }}</td>
+                {% for name in book.author.all %}
+                  <td>{{ name }}</td>
+                {% endfor %}
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </h6>
+{% endblock %}
