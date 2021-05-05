@@ -2,14 +2,16 @@
 {% block content %}
 <h1>Books</h1>
     <br>
+    <h5><a href="{% url 'add-book' %}" class="btn btn-light">Add Book</a> </h5>
+    <br>
     <h6>
-        <table class="table table-borderless">
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">ISBN</th>
-              <th scope="col">Title</th>
-              <th scope="col">Publisher</th>
-              <th scope="col">Author</th>
+              <th scope="col" class="align-middle">ISBN</th>
+              <th scope="col" class="align-middle">Title</th>
+              <th scope="col" class="align-middle">Publisher</th>
+              <th scope="col" class="align-middle">Author</th>
             </tr>
           </thead>
             <tbody>
@@ -17,12 +19,44 @@
             {% for book in book_list %}
 
                 <tr>
-                  <td>{{ book.isbn }}</td>
-                  <td>{{ book.title }}</td>
-                  <td>{{ book.publisher }}</td>
-                {% for name in book.author.all %}
-                  <td>{{ name }}</td>
-                {% endfor %}
+                  <td class="align-middle">{{ book.isbn }}</td>
+                  <td class="align-middle">{{ book.title }}</td>
+                  <td class="align-middle">{{ book.publisher }}</td>
+
+                {% if book.author.all == None %}:
+                    <td class="align-middle">No Data</td>
+{#                    {% for name in book.author.all %}#}
+{#                      <td class="align-middle"> {{ name }} </td>#}
+{#                    {% endfor %}#}
+                {% else %}
+                    {% for name in book.author.all %}
+                      <td class="align-middle"> {{ name }} </td>
+                    {% endfor %}
+                {% endif %}
+
+
+
+                  <td class="align-middle">
+                       <div class="btn-group" role="group">
+                         <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                           Edit
+                         </button>
+                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                           <li><a class="dropdown-item" href="{% url 'update-book' book.id %}">Update</a></li>
+                           <li><a class="dropdown-item" href="{% url 'delete-book' book.id %}">Delete</a></li>
+                         </ul>
+                       </div>
+                  </td>
+{#                    <td>#}
+{#                        <a class="btn btn-primary btn-sm" href="{% url 'update-book' book.id %}">#}
+{#                            Edit#}
+{#                        </a>#}
+{#                    </td>#}
+{#                  <td>#}
+{#                      <a href="{% url 'delete-book' book.id %}" class="btn btn-danger btn-sm">#}
+{#                          Delete#}
+{#                      </a>#}
+{#                  </td>#}
                 </tr>
 
             {% endfor %}
