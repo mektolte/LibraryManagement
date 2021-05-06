@@ -18,5 +18,6 @@ urlpatterns = [
     path('update_author/<author_id>', views.update_author, name='update-author'),
     path('delete_author/<author_id>', views.delete_author, name='delete-author'),
     path('lenders', views.all_lender, name='lenders'),
-    path('add_lender', views.add_lender, name='add-lender')
+    path('add_lender', views.add_lender, name='add-lender'),
+    path('update_lender', views.update_lender, name='update-lender'),
 ]

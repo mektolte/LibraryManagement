@@ -183,3 +183,22 @@ def add_lender(request):
         'form': form,
         'submitted': submitted,
     })
+
+
+def delete_lender(request, lender_id):
+    user = LendingInfo.objects.get(pk=lender_id)
+    user.delete()
+    return redirect('authors')
+
+
+def update_lender(request, lender_id):
+    user = LendingInfo.objects.get(pk=lender_id)
+    form = LenderForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        return redirect('authors')
+
+    return render(request, 'app/update_lender.html', {
+        'user': user,
+        'form': form,
+    })
