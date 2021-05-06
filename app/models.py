@@ -39,6 +39,7 @@ class Book(models.Model):
     title = models.CharField(max_length=120)
     author = models.ManyToManyField(Author, blank=True, null=True)
     publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE)
+    category = models.CharField(max_length=120, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -53,4 +54,4 @@ class LendingInfo(models.Model):
     con_after = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.user)

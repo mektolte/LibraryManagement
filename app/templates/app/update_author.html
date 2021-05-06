@@ -3,17 +3,17 @@
 
 {% block content %}
 
-<h1>Add Lender</h1>
+<h1>Edit Author</h1>
     <br><br>
 
     {% if submitted %}
-            User Is Added Successfully
+            Author is Edited Successfully
     {% else %}
 
     <form action="" method="POST">
      {% csrf_token %}
         {{ form|crispy }}
-    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+    <button type="submit" value="Update" class="btn btn-primary">Edit</button>
     </form>
 
     {% endif %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import UserForm, BookForm, AuthorForm
+from .forms import UserForm, BookForm, AuthorForm, LenderForm
 
 
 # Create your views here.
@@ -134,6 +134,52 @@ def add_author(request):
                 submitted = True
 
     return render(request, 'app/add_author.html', {
+        'form': form,
+        'submitted': submitted,
+    })
+
+
+def delete_author(request, author_id):
+    user = Author.objects.get(pk=author_id)
+    user.delete()
+    return redirect('authors')
+
+
+def update_author(request, author_id):
+    user = Author.objects.get(pk=author_id)
+    form = AuthorForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        return redirect('authors')
+
+    return render(request, 'app/update_author.html', {
+        'user': user,
+        'form': form,
+    })
+
+
+def all_lender(request):
+    lender_list = LendingInfo.objects.all()
+    return render(request, 'app/lenders.html', {
+        'lender_list': lender_list,
+    })
+
+
+def add_lender(request):
+    form = LenderForm
+    submitted = False
+
+    if request.method == 'POST':
+        form = LenderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('authors')
+        else:
+            form = LenderForm(request.POST)
+            if 'submitted' in request.GET:
+                submitted = True
+
+    return render(request, 'app/add_lender.html', {
         'form': form,
         'submitted': submitted,
     })

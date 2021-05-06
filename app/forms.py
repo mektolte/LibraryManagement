@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Book, Lender, Author
+from .models import Book, Lender, Author, LendingInfo
 
 
 # Book Form
@@ -46,4 +46,25 @@ class AuthorForm(ModelForm):
         )
         labels = {
             'name': 'Author Name',
+        }
+
+
+class LenderForm(ModelForm):
+    class Meta:
+        model = LendingInfo
+        fields = (
+            'user',
+            'book',
+            'checkout',
+            'con_before',
+            'checkin',
+            'con_after',
+        )
+        labels = {
+            'user': 'Member',
+            'book': 'Book',
+            'checkout': 'Check Out Time | HH:MM:SS',
+            'con_before': 'Condition Before',
+            'checkin': 'Check In Time | HH:MM:SS',
+            'con_after': 'Condition After',
         }
