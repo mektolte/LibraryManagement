@@ -1,7 +1,7 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import BookForm
+from .forms import UserForm, BookForm, AuthorForm
 
 
 # Create your views here.
@@ -54,11 +54,86 @@ def update_book(request, book_id):
 def delete_book(request, book_id):
     book = Book.objects.get(pk=book_id)
     book.delete()
-    return HttpResponse('Deleted')
+    return redirect('books')
 
 
-def all_lender(request):
-    lender_list = Lender.objects.all()
-    return render(request, 'app/lender_list.html', {
-        'lender_list': lender_list,
+def all_user(request):
+    user_list = Lender.objects.all()
+    return render(request, 'app/user_list.html', {
+        'user_list': user_list,
+    })
+
+
+def add_user(request):
+    form = UserForm
+    submitted = False
+
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('users')
+        else:
+            form = BookForm(request.POST)
+            if 'submitted' in request.GET:
+                submitted = True
+
+    return render(request, 'app/add_user.html', {
+        'form': form,
+        'submitted': submitted,
+    })
+
+
+def update_user(request, user_id):
+    user = Lender.objects.get(pk=user_id)
+    form = UserForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        return redirect('users')
+
+    return render(request, 'app/update_user.html', {
+        'user': user,
+        'form': form,
+    })
+
+
+def delete_user(request, user_id):
+    user = Lender.objects.get(pk=user_id)
+    user.delete()
+    return redirect('users')
+
+
+def all_author(request):
+    author_list = Author.objects.all()
+    return render(request, 'app/author_list.html', {
+        'author_list': author_list,
+    })
+
+
+def author_book(request, author_id):
+    author_detail = Author.objects.filter(pk=author_id)
+    books = Book.objects.filter(author=author_id)
+    return render(request, 'app/author_book.html', {
+        'author_detail': author_detail,
+        'books': books,
+    })
+
+
+def add_author(request):
+    form = AuthorForm
+    submitted = False
+
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('authors')
+        else:
+            form = AuthorForm(request.POST)
+            if 'submitted' in request.GET:
+                submitted = True
+
+    return render(request, 'app/add_author.html', {
+        'form': form,
+        'submitted': submitted,
     })

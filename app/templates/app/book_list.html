@@ -23,7 +23,7 @@
                   <td class="align-middle">{{ book.title }}</td>
                   <td class="align-middle">{{ book.publisher }}</td>
 
-                {% if book.author.all == None %}:
+                {% if book.author in book %}:
                     <td class="align-middle">No Data</td>
 {#                    {% for name in book.author.all %}#}
 {#                      <td class="align-middle"> {{ name }} </td>#}

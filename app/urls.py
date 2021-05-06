@@ -8,5 +8,11 @@ urlpatterns = [
     path('add_book', views.add_book, name='add-book'),
     path('update_book/<book_id>', views.update_book, name='update-book'),
     path('delete_book/<book_id>', views.delete_book, name='delete-book'),
-    path('Lenders', views.all_lender, name='lender'),
+    path('users', views.all_user, name='users'),
+    path('add_user', views.add_user, name='add-user'),
+    path('update_user/<user_id>', views.update_user, name='update-user'),
+    path('delete_user/<user_id>', views.delete_user, name='delete-user'),
+    path('authors', views.all_author, name='authors'),
+    path('add_author', views.add_author, name='add-author'),
+    path('authors/<author_id>', views.author_book, name='author-book'),
 ]
