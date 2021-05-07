@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+    {% if searchnav %}
+        <h1>Searched  for {{ searchnav }}</h1>
+        <br>
+
+        <h3>Book.</h3>
+        {% for book in books %}
+            <h5>
+            <a href="{% url 'detail-book' book.id %}">{{ book }}</a>
+            <br>
+            </h5>
+        {% endfor %}
+
+    {% else %}
+        <h1>Search for nothing..</h1>
+    {% endif %}
+
+{% endblock %}

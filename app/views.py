@@ -18,6 +18,13 @@ def all_books(request):
     })
 
 
+def book_detail(request, book_id):
+    book = Book.objects.get(pk=book_id)
+    return render(request, 'app/book_detail.html', {
+        'book': book,
+    })
+
+
 def add_book(request):
     form = BookForm
     submitted = False
@@ -173,7 +180,7 @@ def add_lender(request):
         form = LenderForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('authors')
+            return HttpResponseRedirect('lenders')
         else:
             form = LenderForm(request.POST)
             if 'submitted' in request.GET:
@@ -188,7 +195,7 @@ def add_lender(request):
 def delete_lender(request, lender_id):
     user = LendingInfo.objects.get(pk=lender_id)
     user.delete()
-    return redirect('authors')
+    return redirect('lenders')
 
 
 def update_lender(request, lender_id):
@@ -196,9 +203,27 @@ def update_lender(request, lender_id):
     form = LenderForm(request.POST or None, instance=user)
     if form.is_valid():
         form.save()
-        return redirect('authors')
+        return redirect('lenders')
 
     return render(request, 'app/update_lender.html', {
         'user': user,
         'form': form,
     })
+
+
+def search_bar(request):
+    if request.method == "POST":
+        searchnav = request.POST['searchnav']
+        authors = Author.objects.filter(name__contains=searchnav)
+        books = Book.objects.filter(name__contains=searchnav)
+        lenders = Lender.objects.filter(name__contains=searchnav)
+        return render(request, 'app/searched.html', {
+            'searchnav': searchnav,
+            'authors': authors,
+            'books': books,
+            'lenders': lenders,
+        })
+    else:
+        return render(request, 'app/searched.html', {
+
+        })

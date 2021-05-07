@@ -12,6 +12,7 @@
               <th scope="col" class="align-middle">Title</th>
               <th scope="col" class="align-middle">Publisher</th>
               <th scope="col" class="align-middle">Author</th>
+              <th scope="col" class="align-middle">Category</th>
             </tr>
           </thead>
             <tbody>
@@ -20,19 +21,21 @@
 
                 <tr>
                   <td class="align-middle">{{ book.isbn }}</td>
-                  <td class="align-middle">{{ book.title }}</td>
+                  <td class="align-middle"><a href="{% url 'detail-book' book.id %}">{{ book.title }}</a></td>
                   <td class="align-middle">{{ book.publisher }}</td>
 
-                {% if book.author in book %}:
+                {% if book.author == 'None' %}:
                     <td class="align-middle">No Data</td>
-{#                    {% for name in book.author.all %}#}
-{#                      <td class="align-middle"> {{ name }} </td>#}
-{#                    {% endfor %}#}
+                    {% for name in book.author.all %}
+                      <td class="align-middle"> {{ name }} </td>
+                    {% endfor %}
                 {% else %}
+{#                    <td class="align-middle">No Data</td>#}
                     {% for name in book.author.all %}
                       <td class="align-middle"> {{ name }} </td>
                     {% endfor %}
                 {% endif %}
+                  <td class="align-middle">{{ book.category }}</td>
 
 
 

@@ -31,8 +31,8 @@
                            Edit
                          </button>
                          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                           <li><a class="dropdown-item" href="#">Update</a></li>
-                           <li><a class="dropdown-item" href="#">Delete</a></li>
+                           <li><a class="dropdown-item" href="{% url 'update-lender' lender.id %}">Update</a></li>
+                           <li><a class="dropdown-item" href="{% url 'delete-lender' lender.id %}">Delete</a></li>
                          </ul>
                        </div>
                   </td>

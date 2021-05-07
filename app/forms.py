@@ -63,8 +63,8 @@ class LenderForm(ModelForm):
         labels = {
             'user': 'Member',
             'book': 'Book',
-            'checkout': 'Check Out Time | HH:MM:SS',
+            'checkout': 'Check Out Time | Example: YYYY-MM-DD HH:MM:SS',
             'con_before': 'Condition Before',
-            'checkin': 'Check In Time | HH:MM:SS',
+            'checkin': 'Check In Time | Example: YYYY-MM-DD HH:MM:SS',
             'con_after': 'Condition After',
         }

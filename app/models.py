@@ -48,9 +48,9 @@ class Book(models.Model):
 class LendingInfo(models.Model):
     user = models.ForeignKey(Lender, blank=False, null=False, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, blank=False, null=False, on_delete=models.CASCADE)
-    checkout = models.TimeField('checkout')
+    checkout = models.DateTimeField('checkout')
     con_before = models.TextField(blank=True)
-    checkin = models.TimeField('checkin', blank=True, null=True)
+    checkin = models.DateTimeField('checkin', blank=True, null=True)
     con_after = models.TextField(blank=True, null=True)
 
     def __str__(self):
