@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, DateTimeField
 from .models import Book, Lender, Author, LendingInfo
 
 
@@ -67,4 +67,8 @@ class LenderForm(ModelForm):
             'con_before': 'Condition Before',
             'checkin': 'Check In Time | Example: YYYY-MM-DD HH:MM:SS',
             'con_after': 'Condition After',
+        }
+        widgets = {
+            'checkout': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'checkin': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }

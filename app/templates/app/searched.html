@@ -5,10 +5,12 @@
         <h1>Searched  for {{ searchnav }}</h1>
         <br>
 
-        <h3>Book.</h3>
-        {% for book in books %}
+        <h3>Lender.</h3>
+        {% for lender in lenders  %}
             <h5>
-            <a href="{% url 'detail-book' book.id %}">{{ book }}</a>
+            <a href="{% url 'detail-lender' lender.id %}">
+                {{ lender }}
+            </a>
             <br>
             </h5>
         {% endfor %}

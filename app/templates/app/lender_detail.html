@@ -1,27 +1,25 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<h1>Lender</h1>
-    <br>
-    <h5><a href="{% url 'add-lender' %}" class="btn btn-light">Add Lender</a> </h5>
-    <br>
-    <h6>
-        <table class="table table-hover">
-          <thead>
+
+    {% for lender in lenders_detail %}
+
+        <h1>Lender {{ lender }}</h1>
+        <br>
+        <br>
+            <table class='table table-hover'>
+            <thead>
             <tr>
-              <th scope="col" class="align-middle">Name</th>
+{#              <th scope="col" class="align-middle">Name</th>#}
               <th scope="col" class="align-middle">Books</th>
               <th scope="col" class="align-middle">Check Out/In</th>
               <th scope="col" class="align-middle">Condition</th>
 {#              <th scope="col" class="align-middle">Check In</th>#}
-
             </tr>
-          </thead>
+            </thead>
             <tbody>
-
-            {% for lender in lender_list %}
-
+            {% for lender in lendings  %}
                 <tr>
-                  <td class="align-middle">{{ lender }}</td>
+{#                  <td class="align-middle">{{ lender }}</td>#}
                   <td class="align-middle">{{ lender.book }}</td>
                   <td class="align-middle">{{ lender.checkout }}</td>
                     <td class="align-middle">{{ lender.con_before }}</td>
@@ -38,15 +36,16 @@
                   </td>
                 </tr>
                 <tr>
-                    <td class="align-middle">------</td>
+{#                    <td class="align-middle">------</td>#}
                     <td class="align-middle">------</td>
                     <td class="align-middle">{{ lender.checkin }}</td>
                     <td class="align-middle">{{ lender.con_after }}</td>
                 </tr>
-
             {% endfor %}
 
             </tbody>
-        </table>
-    </h6>
+            </table>
+
+    {% endfor %}
+
 {% endblock %}

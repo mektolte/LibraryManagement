@@ -21,7 +21,7 @@
 
                 <tr>
                   <td class="align-middle">{{ book.isbn }}</td>
-                  <td class="align-middle"><a href="{% url 'detail-book' book.id %}">{{ book.title }}</a></td>
+                  <td class="align-middle">{{ book.title }}</td>
                   <td class="align-middle">{{ book.publisher }}</td>
 
                 {% if book.author == 'None' %}:

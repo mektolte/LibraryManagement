@@ -1,3 +1,7 @@
+from itertools import chain
+
+import django.db.models
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import *
@@ -172,6 +176,15 @@ def all_lender(request):
     })
 
 
+def detail_lender(request, lender_id):
+    lender_detail = Author.objects.filter(pk=lender_id)
+    lender_list = LendingInfo.objects.filter(lender=lender_id)
+    return render(request, 'app/lender_detail.html', {
+        'lender_detail': lender_detail,
+        'lender_list': lender_list,
+    })
+
+
 def add_lender(request):
     form = LenderForm
     submitted = False
@@ -214,16 +227,44 @@ def update_lender(request, lender_id):
 def search_bar(request):
     if request.method == "POST":
         searchnav = request.POST['searchnav']
-        authors = Author.objects.filter(name__contains=searchnav)
-        books = Book.objects.filter(name__contains=searchnav)
-        lenders = Lender.objects.filter(name__contains=searchnav)
+        lenders = Lender.objects.filter(Q(first_name__contains=searchnav) | Q(last_name__contains=searchnav))
         return render(request, 'app/searched.html', {
             'searchnav': searchnav,
-            'authors': authors,
-            'books': books,
             'lenders': lenders,
         })
     else:
         return render(request, 'app/searched.html', {
 
         })
+
+
+# ALL MODEL TRIAl
+# def search_bar(request):
+#     if request.method == "POST":
+#         searchnav = request.POST['searchnav']
+#         authors = Author.objects.filter(name__contains=searchnav)
+#         books = Book.objects.filter(title__contains=searchnav)
+#         lenders = Lender.objects.filter(user__contains=searchnav)
+#         kelompok = chain(authors, books, lenders)
+#         return render(request, 'app/searched.html', {
+#             'searchnav': searchnav,
+#             'kelompok': kelompok,
+#         })
+#     else:
+#         return render(request, 'app/searched.html', {
+#
+#         })
+
+
+# def search_bar(request):
+#     search_models = [Author, Lender, LendingInfo]
+#     search_results = []
+#     for model in search_models:
+#         fields = [x for x in model._meta.fields if isinstance(x, django.db.models.CharField)]
+#         search_queries = [Q(**{x.name + "__contains": search_query}) for x in fields]
+#         q_object = Q()
+#         for query in search_queries:
+#             q_object = q_object | query
+#
+#         results = model.objects.filter(q_object)
+#         search_results.append(results)
