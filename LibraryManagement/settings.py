@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'dal',
+    'dal_select2',
+    # 'grappelli',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

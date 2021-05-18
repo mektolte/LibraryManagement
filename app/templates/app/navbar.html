@@ -50,8 +50,19 @@
               Lender
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'lenders' %}">Lender list</a></li>
+              <li><a class="dropdown-item" href="{% url 'lenders' %}">Lending list</a></li>
 {#              <li><a class="dropdown-item" href="{% url 'add-author' %}">Add Lend</a></li>#}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Costumer
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'users' %}">Costumer list</a></li>
+              <li><a class="dropdown-item" href="{% url 'add-user' %}">Add Costumer</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>

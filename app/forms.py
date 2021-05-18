@@ -1,6 +1,7 @@
 from django import forms
-from django.forms import ModelForm, DateTimeField
-from .models import Book, Lender, Author, LendingInfo
+from django.forms import ModelForm
+from .models import Book, Costumer, Author, LendingInfo
+from dal import autocomplete
 
 
 # Book Form
@@ -19,11 +20,14 @@ class BookForm(ModelForm):
             'author': 'Author',
             'publisher': 'Publisher'
         }
+        # widgets = {
+        #     'author': autocomplete.ModelSelect2Multiple('author')
+        # }
 
 
 class UserForm(ModelForm):
     class Meta:
-        model = Lender
+        model = Costumer
         fields = (
             'first_name',
             'last_name',

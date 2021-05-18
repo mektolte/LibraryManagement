@@ -1,6 +1,3 @@
-from itertools import chain
-
-import django.db.models
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -69,7 +66,7 @@ def delete_book(request, book_id):
 
 
 def all_user(request):
-    user_list = Lender.objects.all()
+    user_list = Costumer.objects.all()
     return render(request, 'app/user_list.html', {
         'user_list': user_list,
     })
@@ -96,7 +93,7 @@ def add_user(request):
 
 
 def update_user(request, user_id):
-    user = Lender.objects.get(pk=user_id)
+    user = Costumer.objects.get(pk=user_id)
     form = UserForm(request.POST or None, instance=user)
     if form.is_valid():
         form.save()
@@ -109,7 +106,7 @@ def update_user(request, user_id):
 
 
 def delete_user(request, user_id):
-    user = Lender.objects.get(pk=user_id)
+    user = Costumer.objects.get(pk=user_id)
     user.delete()
     return redirect('users')
 
@@ -227,7 +224,7 @@ def update_lender(request, lender_id):
 def search_bar(request):
     if request.method == "POST":
         searchnav = request.POST['searchnav']
-        lenders = Lender.objects.filter(Q(first_name__contains=searchnav) | Q(last_name__contains=searchnav))
+        lenders = Costumer.objects.filter(Q(first_name__contains=searchnav) | Q(last_name__contains=searchnav))
         return render(request, 'app/searched.html', {
             'searchnav': searchnav,
             'lenders': lenders,

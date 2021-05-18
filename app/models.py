@@ -1,20 +1,29 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
 
-class Group(models.Model):
-    name = models.CharField(max_length=50)
+# class Group(models.Model):
+#     name = models.CharField(max_length=50)
+#
+#     def __str__(self):
+#         return self.name
 
-    def __str__(self):
-        return self.name
 
+class Costumer(models.Model):
+    STUDENT = 'Student'
+    NONSTUDENT = 'Non-student'
+    Group = [
+        (STUDENT, ' Student'),
+        (NONSTUDENT, 'Non-Student')
+    ]
 
-class Lender(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=20, blank=True)
-    group = models.ForeignKey(Group, blank=False, null=False, on_delete=models.CASCADE)
+    # group = models.ForeignKey(Group, blank=False, null=False, on_delete=models.CASCADE)
+    group = models.CharField(max_length=15, choices=Group, default=STUDENT)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
@@ -46,7 +55,7 @@ class Book(models.Model):
 
 
 class LendingInfo(models.Model):
-    user = models.ForeignKey(Lender, blank=False, null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(Costumer, blank=False, null=False, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, blank=False, null=False, on_delete=models.CASCADE)
     checkout = models.DateTimeField('checkout')
     con_before = models.TextField(blank=True)
